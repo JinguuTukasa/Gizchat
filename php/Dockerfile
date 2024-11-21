@@ -1,9 +1,25 @@
-FROM php:7.4-apache
+# ベースイメージ
+FROM php:8.3-fpm
 
-RUN apt-get update && apt-get install -y libonig-dev git vim && \
-    docker-php-ext-install pdo_mysql mysqli mbstring && \
-    a2enmod rewrite
+# 作業ディレクトリを指定
+WORKDIR /var/www
 
-WORKDIR /var/www/src
+# 必要なPHPモジュールとComposerのインストール
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql gd
 
-COPY --from=composer:2.2.5 /usr/bin/composer /usr/bin/composer
+# Composerをインストール
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# アプリケーションのファイルをコンテナにコピー
+COPY . .
+
+# 権限の設定（アプリケーションのファイルをコピーした後に実行）
+RUN chown -R www-data:www-data /var/www \
