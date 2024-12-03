@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -y \
 # Composerをインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Composerで依存関係をインストール
+RUN composer install --no-dev --optimize-autoloader
+
 # コンテナにアプリケーションをコピー
 COPY . .
 
