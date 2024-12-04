@@ -1,19 +1,18 @@
 # ベースイメージ
 FROM php:8.1-fpm
 
-# 作業ディレクトリ
-WORKDIR /var/www
-
 # 必要なPHPモジュールとComposerのインストール
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
+    gnupg \
+    libzip-dev \
     unzip \
-    git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql gd
+    zlib1g-dev \
+    cron \
+    vim \
+    && docker-php-ext-install \
+    pdo_mysql \
+    opcache \
+    zip
 
 # Composerをインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -30,3 +29,6 @@ RUN chown -R www-data:www-data /var/www \
 
 # サーバーを立ち上げる
 CMD ["php-fpm"]
+
+# 作業ディレクトリ
+WORKDIR /var/www
