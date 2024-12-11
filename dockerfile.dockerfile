@@ -32,3 +32,8 @@ CMD ["php-fpm"]
 
 # 作業ディレクトリ
 WORKDIR /var/www
+
+#　手動コマンド
+# npmインストール
+# apt-get install -y nodejs npm
+# npm install -g browser-sync
