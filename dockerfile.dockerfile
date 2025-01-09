@@ -17,19 +17,6 @@ RUN apt-get update && apt-get install -y \
 # Composerをインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Composerで依存関係をインストール
-RUN composer install --no-dev --optimize-autoloader
-
-# コンテナにアプリケーションをコピー
-COPY . .
-
-# Laravelの権限を設定
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 /var/www/storage
-
-# サーバーを立ち上げる
-CMD ["php-fpm"]
-
 # 作業ディレクトリ
 WORKDIR /var/www
 

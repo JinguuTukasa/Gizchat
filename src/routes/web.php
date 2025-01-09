@@ -19,3 +19,7 @@ Route::get('/profile', [TestController::class, 'profile'])->name('profile');
 
 // ダッシュボード
 Route::get('/dashboard', [TestController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/video-chat', function () {
+    return view('video-chat');
+});
