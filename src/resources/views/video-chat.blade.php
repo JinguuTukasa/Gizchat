@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ビデオ通話とチャット</title>
-  <link rel="stylesheet" href="{{ mix('css/video-chat.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/video-chat.css') }}">
 </head>
 
 <body>

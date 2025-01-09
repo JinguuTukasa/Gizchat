@@ -23,4 +23,5 @@ WORKDIR /var/www
 #　手動コマンド
 # npmインストール
 # apt-get install -y nodejs npm
-# npm install -g browser-sync
+# composer require innologica/laravel-vite
+# npm install
